@@ -1,0 +1,116 @@
+APP.jsx ---------------------------------
+
+import { Fragment, useState } from "react";
+import Form from "./Components/Form";
+import Input from "./Components/Input";
+import InvalidInput from "./Components/Modals/InvalidInput";
+
+function App() {
+  const [heading, setHeading] = useState("");
+  const [ifModal, setifModal] = useState(false);
+
+  const inputHandeler = (input) => setHeading(input);
+  const showModal = () => setifModal(true);
+  const closeModal = () => setifModal(false);
+
+  return (
+    <Fragment>
+      <Form onGettingData={inputHandeler} showModal={showModal} />
+      <Input onSendingData={heading} />
+      {ifModal && <InvalidInput closeModal={closeModal} />}
+    </Fragment>
+  );
+}
+
+export default App;
+
+
+
+InvalidInputModal.jsx -----------------------------------------
+
+import React, { Fragment } from "react";
+import ReactDOM from "react-dom";
+import Modal from "../UI/ModalMaker";
+import Overlay from "../UI/OverlayMaker";
+import classes from "../../style/modal.module.css";
+
+const Modals = (props) => (
+  <Modal
+    ModalClass={classes.ModalClass}
+    MHEadingClass={classes.MHEadingClass}
+    problem="Invalid Input"
+    problemcontent={`Input can'nt be empty! Please Enter Something 🙌`}
+    MCloseClass={classes.MCloseClass}
+    MContentClass={classes.MContentClass}
+    buttoncontent={`Close`}
+    onClick={props.closeModal}
+  />
+);
+
+const Overlays = (props) => <Overlay className={classes.Overlay} onClick={props.closeModal} />;
+
+const InvalidInput = (props) => {
+  return (
+    <Fragment>
+      {ReactDOM.createPortal(
+        <Modals closeModal={props.closeModal} />,
+        document.querySelector("#modal-root")
+      )}
+      {ReactDOM.createPortal(
+        <Overlays closeModal={props.closeModal}/>,
+        document.querySelector("#overlay-root")
+      )}
+    </Fragment>
+  );
+};
+
+export default InvalidInput;
+
+
+
+
+ModalMaker.jsx ----------------------------------------
+
+import React from "react";
+
+const Modal = (props) => {
+  return (
+    <div className={props.ModalClass}>
+      <h1 className={props.MHEadingClass} problem={props.problem}>
+        {props.problem}
+      </h1>
+      <p problemcontent={props.problemcontent} className={props.MContentClass}>
+      {props.problemcontent}
+      </p>
+      <button onClick={props.onClick} className={props.MCloseClass} buttoncontent={props.buttoncontent}>
+      {props.buttoncontent}
+      </button>
+    </div>
+  );
+};
+
+export default Modal;
+
+
+
+OverlayMaker.jsx ----------------------------------------
+
+import React from 'react'
+
+const Overlay = (props) => {
+  return (
+    <div onClick={props.onClick} className={props.className}>{props.children}</div>
+  )
+}
+
+export default Overlay;
+
+
+Form-validity ------------------------------
+
+userInput.trim() !== ""
+      ? props.onGettingData(userInput)
+      : props.showModal();
+
+
+
