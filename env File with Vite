@@ -1,0 +1,10 @@
+make file .env
+
+----------------------.env-------------------
+VITE_REACT_YOUR_KEY_ONE = 'your key one'
+VITE_REACT_YOUR_KEY_TWO = 'your key two' 
+
+
+--------------------ANY-FILE---------------
+import.meta.env.VITE_REACT_YOUR_KEY_ONE         // your key one
+import.meta.env.VITE_REACT_YOUR_KEY_TWO         // your key two
