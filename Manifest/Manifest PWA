@@ -1,0 +1,46 @@
+step 1: make maskable icnos using favicon.io (use Square logo icon 1000 X 1000)
+step 2: make manifest.json file in public.
+step 3: go to manifest generator, generate manifest!
+step 4: genrate 192, 256, 384, 512 icon images
+step 5: add diffeerent icons to manifest.json
+in this format 
+
+ "icons": [
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  
+  step 6: generate maskable icon using maskable.app and add to icons
+    
+     "icons": [
+         {
+      "src": "maskable.png",
+      "type": "image/png",
+      "sizes": "196x196",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  
+  then add service-worker file and serviceWorkerRegistration file.
+  
+  and add import and serviceWorkerRegistration.register(); after the render();
+  
+  --PWA only works in production mode....
